@@ -17,12 +17,18 @@ export const globalStyles = () => css`
   input,
   textarea,
   button {
-    font: 500 1.6rem Raleway, sans-serif;
+    font: 500 1.6rem Poppins, sans-serif;
   }
 
   html,
   body {
     height: 100%;
+    background: #292941;
+    color: #d8d0ff;
+
+    .apexcharts-tooltip {
+      background: #2b2a59;
+    }
   }
 
   button {
