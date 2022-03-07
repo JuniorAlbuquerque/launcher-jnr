@@ -1,15 +1,14 @@
 import React from 'react'
 import ApexChart from 'react-apexcharts'
 
-type ChartProps = {
+type ChartProps<T> = {
   options: ApexCharts.ApexOptions
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  series?: any[] | undefined
+  series?: T[] | undefined
 }
 
 const TIME_RANGE_IN_MILLISECONDS = 30 * 1000
 
-const Chart: React.FC<ChartProps> = ({ options, series }) => {
+function Chart<T>({ options, series }: ChartProps<T>) {
   const defaultOptions: ApexCharts.ApexOptions = {
     chart: {
       zoom: {
