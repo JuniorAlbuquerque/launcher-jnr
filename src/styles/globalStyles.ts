@@ -23,7 +23,7 @@ export const globalStyles = () => css`
   html,
   body {
     height: 100%;
-    background: #292941;
+    background: #26254f;
     color: #d8d0ff;
 
     .apexcharts-tooltip {
