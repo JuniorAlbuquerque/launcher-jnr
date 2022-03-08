@@ -1,14 +1,19 @@
-import React from 'react'
 import ApexChart from 'react-apexcharts'
+import styles from './styles'
 
 type ChartProps<T> = {
   options: ApexCharts.ApexOptions
+  title?: string
   series?: T[] | undefined
+  range?: {
+    min: number | string
+    max: number | string
+  }
 }
 
 const TIME_RANGE_IN_MILLISECONDS = 30 * 1000
 
-function Chart<T>({ options, series }: ChartProps<T>) {
+function Chart<T>({ options, series, title, range }: ChartProps<T>) {
   const defaultOptions: ApexCharts.ApexOptions = {
     chart: {
       zoom: {
@@ -24,7 +29,13 @@ function Chart<T>({ options, series }: ChartProps<T>) {
       fontFamily: 'Poppins',
       toolbar: {
         show: false
+      },
+      sparkline: {
+        enabled: true
       }
+    },
+    legend: {
+      show: true
     },
     colors: ['#8380FF', '#ee5'],
     grid: {
@@ -34,8 +45,15 @@ function Chart<T>({ options, series }: ChartProps<T>) {
       type: 'datetime',
       range: TIME_RANGE_IN_MILLISECONDS,
       labels: {
-        datetimeUTC: false
+        show: false
       },
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      tickPlacement: 'off',
       tooltip: {
         enabled: false
       }
@@ -46,12 +64,16 @@ function Chart<T>({ options, series }: ChartProps<T>) {
       }
     },
     stroke: {
-      curve: 'smooth'
+      curve: 'smooth',
+      width: 2
     },
-    title: {
-      align: 'left',
-      style: {
-        fontWeight: 600
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.5,
+        opacityTo: 0,
+        stops: [0, 80, 100]
       }
     },
     dataLabels: {
@@ -68,21 +90,18 @@ function Chart<T>({ options, series }: ChartProps<T>) {
   }
 
   return (
-    <div
-      style={{
-        width: 400,
-        marginTop: 80,
-        background: '#14133F',
-        padding: 16,
-        borderRadius: 8
-      }}
-    >
+    <div css={styles.root}>
+      <p>{title}</p>
       <ApexChart
         type="area"
         height={200}
         options={defaultOptions}
         series={series}
       />
+      <div className="range">
+        <span>{range?.max}</span>
+        <span>{range?.min}</span>
+      </div>
     </div>
   )
 }

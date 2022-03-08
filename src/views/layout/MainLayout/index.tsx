@@ -9,7 +9,7 @@ const MainLayout: React.FC = () => {
       <div>
         <Sidebar />
       </div>
-      <div>
+      <div css={styles.main}>
         <Outlet />
       </div>
     </div>

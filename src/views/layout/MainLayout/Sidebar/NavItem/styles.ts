@@ -15,7 +15,7 @@ const styles = {
       background: ${active ? colors.primary[100] : 'none'};
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 1.6rem;
       list-style-type: none;
       border-radius: 1.6rem;
     }

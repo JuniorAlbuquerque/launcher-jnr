@@ -10,7 +10,9 @@ const theme: LauncherTheme = {
       500: '#8380FF'
     },
     secondary: {
-      100: '#827D99'
+      100: '#827D99',
+      200: '#9792B2',
+      300: '#D8D0FF'
     }
   }
 }
