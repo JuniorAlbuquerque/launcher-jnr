@@ -1,17 +1,22 @@
 import { RouteObject } from 'react-router-dom'
 
-import Home from '@/views/Home'
-import Games from '@/views/Games'
+import Monitor from '@/views/pages/Monitor'
+import Games from '@/views/pages/Games'
+import Settings from '@/views/pages/Settings'
 
 export const MainRoutes: RouteObject = {
   children: [
     {
       path: 'monitor',
-      element: <Home />
+      element: <Monitor />
     },
     {
       path: 'games',
       element: <Games />
+    },
+    {
+      path: 'settings',
+      element: <Settings />
     }
   ]
 }

@@ -5,7 +5,7 @@ import Ping from './Ping'
 import CpuUsage from './CpuUsage'
 import styles from './styles'
 
-const Home: React.FC = () => {
+const Monitor: React.FC = () => {
   const [memoryStatus, setMemoryStatus] = useState<MemoryData>({} as MemoryData)
 
   useEffect(() => {
@@ -18,8 +18,6 @@ const Home: React.FC = () => {
 
   return (
     <div css={styles.root}>
-      <h3>| Monitor</h3>
-
       <div className="main">
         <p>Uso de memória: {memoryStatus.actualUse}</p>
         <p>Memoria total: {memoryStatus.total}</p>
@@ -39,4 +37,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default Monitor

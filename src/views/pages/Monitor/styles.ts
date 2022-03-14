@@ -1,7 +1,7 @@
-import { css, Theme } from '@emotion/react'
+import { css } from '@emotion/react'
 
 const styles = {
-  root: ({ colors }: Theme) => css`
+  root: () => css`
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
@@ -9,12 +9,6 @@ const styles = {
     padding: 0 1.8rem 0 0;
     flex: 1;
     height: 100%;
-
-    h3 {
-      font-size: 3rem;
-      margin-top: 3.4rem;
-      color: ${colors.primary[500]};
-    }
 
     .main {
       display: flex;

@@ -16,6 +16,8 @@ const styles = {
     background-size: contain;
     padding: 1.6rem 0;
     flex: 1;
+    display: flex;
+    flex-direction: column;
   `
 }
 
