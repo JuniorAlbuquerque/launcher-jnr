@@ -1,23 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import socketService, { SocketListener } from '@/services/socket'
 import Chart from '@/components/Chart'
-
-interface DataList {
-  name: string
-  data: Array<{
-    x: Date
-    y: string | number
-  }>
-}
+import { usePingStore } from '@/data/store/ping'
 
 const Ping: React.FC = () => {
-  const [ping, setPing] = useState<number>(0)
-  const [pingArr, setPingArr] = useState<DataList[]>([
-    {
-      name: 'ping',
-      data: []
-    }
-  ])
+  const { data, ping, updateData } = usePingStore()
 
   const optionsPing: ApexCharts.ApexOptions = {
     yaxis: {
@@ -31,30 +18,18 @@ const Ping: React.FC = () => {
 
   useEffect(() => {
     socketService.onMessage(SocketListener.PING, (pingReceived: number) => {
-      setPing(pingReceived)
-      setPingArr((prevState) =>
-        prevState.map((val) => {
-          return {
-            name: val.name,
-            data: [
-              ...val.data,
-              {
-                x: new Date(),
-                y: pingReceived
-              }
-            ]
-          }
-        })
-      )
+      updateData(pingReceived)
     })
 
-    // return () => socketService.unlistener()
-  }, [])
+    return () => {
+      socketService.off(SocketListener.PING)
+    }
+  }, [updateData])
 
   return (
     <Chart
       options={optionsPing}
-      series={pingArr}
+      series={data}
       title={`Ping: ${ping}`}
       range={{
         min: 50,

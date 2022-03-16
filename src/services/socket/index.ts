@@ -25,6 +25,10 @@ export class SocketService {
     return this.socket.on(message, listener)
   }
 
+  off(topic: SocketListener) {
+    return this.socket.off(topic)
+  }
+
   unlistener(): void {
     this.socket.disconnect()
   }

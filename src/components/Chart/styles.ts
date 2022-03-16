@@ -2,11 +2,11 @@ import { css, Theme } from '@emotion/react'
 
 const styles = {
   root: ({ colors }: Theme) => css`
-    width: 400px;
     background: ${colors.primary[300]};
     padding: 0;
     border-radius: 8px;
     position: relative;
+    flex: 1;
 
     p {
       padding: 16px 16px 0;

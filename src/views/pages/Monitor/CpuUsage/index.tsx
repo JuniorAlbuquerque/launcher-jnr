@@ -1,24 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { CpuData } from '../types'
 import socketService, { SocketListener } from '@/services/socket'
 import Chart from '@/components/Chart'
-
-interface DataList {
-  name: string
-  data: Array<{
-    x: Date
-    y: string | number
-  }>
-}
+import { useCpuUsageStore } from '@/data/store/cpuUsage'
 
 const CpuUsage: React.FC = () => {
-  const [cpuStatus, setCpuStatus] = useState<CpuData>({} as CpuData)
-  const [cpuArr, setCpuArr] = useState<DataList[]>([
-    {
-      name: 'Cpu usage',
-      data: []
-    }
-  ])
+  const { data, cpuUsage, updateData } = useCpuUsageStore()
 
   const optionsCpu: ApexCharts.ApexOptions = {
     yaxis: {
@@ -35,31 +22,19 @@ const CpuUsage: React.FC = () => {
 
   useEffect(() => {
     socketService.onMessage(SocketListener.CPU, (data: CpuData) => {
-      setCpuStatus(data)
-      setCpuArr((prevState) =>
-        prevState.map((val) => {
-          return {
-            name: val.name,
-            data: [
-              ...val.data,
-              {
-                x: new Date(),
-                y: data.cpuUsageInPercentage
-              }
-            ]
-          }
-        })
-      )
+      updateData(data?.cpuUsageInPercentage)
     })
 
-    // return () => socketService.unlistener()
-  }, [])
+    return () => {
+      socketService.off(SocketListener.CPU)
+    }
+  }, [updateData])
 
   return (
     <Chart
       options={optionsCpu}
-      series={cpuArr}
-      title={`Uso de cpu: ${cpuStatus.cpuUsageInPercentage || ''}`}
+      series={data}
+      title={`Uso de cpu: ${cpuUsage || ''}`}
       range={{
         min: '5%',
         max: '100%'

@@ -1,10 +1,10 @@
 import ApexChart from 'react-apexcharts'
 import styles from './styles'
 
-type ChartProps<T> = {
+type ChartProps = {
   options: ApexCharts.ApexOptions
   title?: string
-  series?: T[] | undefined
+  series?: ApexAxisChartSeries | ApexNonAxisChartSeries
   range?: {
     min: number | string
     max: number | string
@@ -13,7 +13,7 @@ type ChartProps<T> = {
 
 const TIME_RANGE_IN_MILLISECONDS = 30 * 1000
 
-function Chart<T>({ options, series, title, range }: ChartProps<T>) {
+function Chart({ options, series, title, range }: ChartProps) {
   const defaultOptions: ApexCharts.ApexOptions = {
     chart: {
       zoom: {
