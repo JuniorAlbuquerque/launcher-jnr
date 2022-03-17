@@ -3,7 +3,11 @@ import { css, Theme } from '@emotion/react'
 const styles = {
   root: ({ colors }: Theme) => css`
     width: 30rem;
+    height: 100%;
     padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .avatar {
       display: flex;
@@ -21,6 +25,12 @@ const styles = {
         color: ${colors.secondary[200]};
         font-size: 1.4rem;
       }
+    }
+
+    .charts {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
     }
   `
 }

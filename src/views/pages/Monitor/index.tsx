@@ -35,8 +35,8 @@ const Monitor: React.FC = () => {
             gap: 16
           }}
         >
-          <Ping />
-          <CpuUsage />
+          {/* <Ping /> */}
+          {/* <CpuUsage /> */}
         </div>
       </div>
 

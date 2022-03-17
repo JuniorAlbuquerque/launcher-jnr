@@ -3,11 +3,13 @@ import { CpuData } from '../types'
 import socketService, { SocketListener } from '@/services/socket'
 import Chart from '@/components/Chart'
 import { useCpuUsageStore } from '@/data/store/cpuUsage'
+import { lineOptions } from '@/components/Chart/lineOptions'
 
 const CpuUsage: React.FC = () => {
   const { data, cpuUsage, updateData } = useCpuUsageStore()
 
   const optionsCpu: ApexCharts.ApexOptions = {
+    ...lineOptions,
     yaxis: {
       min: 0,
       max: 100,
@@ -34,6 +36,8 @@ const CpuUsage: React.FC = () => {
     <Chart
       options={optionsCpu}
       series={data}
+      type="area"
+      height={120}
       title={`Uso de cpu: ${cpuUsage || ''}`}
       range={{
         min: '5%',

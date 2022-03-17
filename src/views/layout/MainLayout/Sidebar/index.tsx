@@ -4,6 +4,9 @@ import NavItem from './NavItem'
 import styles from './styles'
 import avatar from '@/assets/avatar.png'
 import { useUserQuery } from '@/data/queries/userQuery'
+import Disks from './Disks'
+import Ping from '@/views/pages/Monitor/Ping'
+import CpuUsage from '@/views/pages/Monitor/CpuUsage'
 
 const Sidebar: React.FC = () => {
   const { userData } = useUserQuery()
@@ -22,6 +25,11 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
       {sidebarItems}
+      <div className="charts">
+        <Disks />
+        <Ping />
+        <CpuUsage />
+      </div>
     </div>
   )
 }

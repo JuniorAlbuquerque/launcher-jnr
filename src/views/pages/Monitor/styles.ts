@@ -67,9 +67,11 @@ const styles = {
       flex-direction: column;
       gap: 0.4rem;
       margin-top: 1rem;
+      font-size: 1.4rem;
 
       img {
         width: 16px;
+        margin-left: -0.25rem;
       }
 
       span {
