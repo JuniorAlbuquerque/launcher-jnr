@@ -2,18 +2,46 @@ import ApexChart from 'react-apexcharts'
 import styles from './styles'
 
 type ChartProps = {
-  options: ApexCharts.ApexOptions
+  options?: ApexCharts.ApexOptions
   title?: string
+  type?:
+    | 'area'
+    | 'line'
+    | 'bar'
+    | 'histogram'
+    | 'pie'
+    | 'donut'
+    | 'radialBar'
+    | 'scatter'
+    | 'bubble'
+    | 'heatmap'
+    | 'treemap'
+    | 'boxPlot'
+    | 'candlestick'
+    | 'radar'
+    | 'polarArea'
+    | 'rangeBar'
+    | undefined
   series?: ApexAxisChartSeries | ApexNonAxisChartSeries
   range?: {
     min: number | string
     max: number | string
   }
+  width?: number
+  height?: number
+  withoutBg?: boolean
 }
 
-const TIME_RANGE_IN_MILLISECONDS = 30 * 1000
-
-function Chart({ options, series, title, range }: ChartProps) {
+function Chart({
+  options,
+  series,
+  title,
+  type,
+  range,
+  width,
+  height,
+  withoutBg
+}: ChartProps) {
   const defaultOptions: ApexCharts.ApexOptions = {
     chart: {
       zoom: {
@@ -34,50 +62,13 @@ function Chart({ options, series, title, range }: ChartProps) {
         enabled: true
       }
     },
-    legend: {
-      show: true
-    },
-    colors: ['#8380FF', '#ee5'],
+    colors: ['#6D6AE3', '#ee5'],
     grid: {
       show: false
-    },
-    xaxis: {
-      type: 'datetime',
-      range: TIME_RANGE_IN_MILLISECONDS,
-      labels: {
-        show: false
-      },
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      },
-      tickPlacement: 'off',
-      tooltip: {
-        enabled: false
-      }
-    },
-    yaxis: {
-      labels: {
-        formatter: (val) => val.toFixed(0)
-      }
     },
     stroke: {
       curve: 'smooth',
       width: 2
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.5,
-        opacityTo: 0,
-        stops: [0, 80, 100]
-      }
-    },
-    dataLabels: {
-      enabled: false
     },
     tooltip: {
       fillSeriesColor: true,
@@ -90,18 +81,21 @@ function Chart({ options, series, title, range }: ChartProps) {
   }
 
   return (
-    <div css={styles.root}>
-      <p>{title}</p>
+    <div css={(theme) => styles.root(theme, withoutBg)}>
+      {!!title && <p>{title}</p>}
       <ApexChart
-        type="area"
-        height={200}
+        type={type}
+        height={height ? height : 200}
+        width={width ? width : '100%'}
         options={defaultOptions}
         series={series}
       />
-      <div className="range">
-        <span>{range?.max}</span>
-        <span>{range?.min}</span>
-      </div>
+      {!!range && (
+        <div className="range">
+          <span>{range?.max}</span>
+          <span>{range?.min}</span>
+        </div>
+      )}
     </div>
   )
 }
