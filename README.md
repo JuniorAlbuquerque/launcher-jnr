@@ -1,4 +1,4 @@
-# Super Launcher - jnr
+# Super Launcher - ed-jnr
 
 Frontend of a project where I decided to create my own launcher for my games, streaming services and apps on my computer.
 
